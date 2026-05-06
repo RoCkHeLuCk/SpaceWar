@@ -110,7 +110,7 @@ function AsteroideControle() {
   }
 } 
 
-function asteroideColisao() {
+function asteroideDestruir() {
   //verifica colisão entre os projéteis e os inimigos
   for (var i = 0; i < Asteroide.length; i++) { 
     for (var j = 0; j < Projetil.length; j++) {
@@ -124,4 +124,18 @@ function asteroideColisao() {
       }   
     }
   }
+}
+
+function asteroideColisao() {
+  //verifica colisão entre a nave e os inimigos
+  for (var i = 0; i < Asteroide.length; i++) {
+    if (NaveX < Asteroide[i].x + Asteroide[i].s && NaveX + 40 > Asteroide[i].x &&
+        NaveY < Asteroide[i].y + Asteroide[i].s && NaveY + 40 > Asteroide[i].y) {
+      //colisão detectada, reinicia o jogo 
+      NovoJogo();
+      break;
+    } 
+  }
+  //verifica colisão entre os projéteis e os inimigos
+  asteroideDestruir();
 }
