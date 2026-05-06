@@ -103,7 +103,7 @@ function AsteroideControle() {
       { x: random(0, TelaLargura - 30),
         y: -30, 
         s: random(10, 30),
-        v: random(1, 10) 
+        v: random(1, 7) 
       }
     );
   }
