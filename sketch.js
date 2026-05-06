@@ -26,6 +26,7 @@ function draw() {
   NaveControle();
   ProjetilControle();
   AsteroideControle();
+  asteroideColisao();
 }
 
 function NovoJogo() {
@@ -108,3 +109,19 @@ function AsteroideControle() {
     );
   }
 } 
+
+function asteroideColisao() {
+  //verifica colisão entre os projéteis e os inimigos
+  for (var i = 0; i < Asteroide.length; i++) { 
+    for (var j = 0; j < Projetil.length; j++) {
+      if (Projetil[j].x > Asteroide[i].x && Projetil[j].x < Asteroide[i].x + Asteroide[i].s &&
+          Projetil[j].y > Asteroide[i].y && Projetil[j].y < Asteroide[i].y + Asteroide[i].s) {
+        //colisão detectada, remove o inimigo e o projétil
+        Asteroide.splice(i, 1);
+        Projetil.splice(j, 1);
+        i--;
+        break;
+      }   
+    }
+  }
+}
