@@ -5,6 +5,7 @@ var NaveImagem, NaveY, NaveX, NaveVelocidade;
 var Projetil = [], ProjetilVelocidade = 10;
 var ProjetilFrequencia = 100;
 var AsteroideImage, Asteroide = [];
+var score = 0;
 
 function preload() {
   EstrelaImagem = loadImage('./star.gif');
@@ -27,6 +28,7 @@ function draw() {
   ProjetilControle();
   AsteroideControle();
   asteroideColisao();
+  ScoreMostrar();
 }
 
 function NovoJogo() {
@@ -36,6 +38,7 @@ function NovoJogo() {
   NaveVelocidade = 10;
   Projetil = [];
   Asteroide = [];
+  score = 0;
 }
 
 function TelaCalcular() {
@@ -116,10 +119,15 @@ function asteroideDestruir() {
     for (var j = 0; j < Projetil.length; j++) {
       if (Projetil[j].x > Asteroide[i].x && Projetil[j].x < Asteroide[i].x + Asteroide[i].s &&
           Projetil[j].y > Asteroide[i].y && Projetil[j].y < Asteroide[i].y + Asteroide[i].s) {
-        //colisão detectada, remove o inimigo e o projétil
-        Asteroide.splice(i, 1);
+        //colisão detectada, remove o projétil
         Projetil.splice(j, 1);
-        i--;
+        Asteroide[i].s-= 5;
+        Asteroide[i].v-= 1;
+        if (Asteroide[i].s <= 0) {
+          Asteroide.splice(i, 1);
+          i--;
+        }
+        score += 1;
         break;
       }   
     }
@@ -136,6 +144,11 @@ function asteroideColisao() {
       break;
     } 
   }
-  //verifica colisão entre os projéteis e os inimigos
-  asteroideDestruir();
+}
+
+function ScoreMostrar() {
+  //exibe a pontuação
+  fill(255);
+  textSize(16);
+  text("Score: " + score, 10, 20);
 }
