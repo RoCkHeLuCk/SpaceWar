@@ -26,6 +26,7 @@ function draw() {
   Estrelas();
   NaveControle();
   ProjetilControle();
+  asteroideDestruir();
   AsteroideControle();
   asteroideColisao();
   ScoreMostrar();
@@ -115,21 +116,21 @@ function AsteroideControle() {
 
 function asteroideDestruir() {
   //verifica colisão entre os projéteis e os inimigos
-  for (var i = 0; i < Asteroide.length; i++) { 
-    for (var j = 0; j < Projetil.length; j++) {
+  for (var i = Asteroide.length - 1; i >= 0; i--) {
+    for (var j = Projetil.length - 1; j >= 0; j--) {
       if (Projetil[j].x > Asteroide[i].x && Projetil[j].x < Asteroide[i].x + Asteroide[i].s &&
           Projetil[j].y > Asteroide[i].y && Projetil[j].y < Asteroide[i].y + Asteroide[i].s) {
-        //colisão detectada, remove o projétil
         Projetil.splice(j, 1);
-        Asteroide[i].s-= 5;
-        Asteroide[i].v-= 1;
-        if (Asteroide[i].s <= 0) {
-          Asteroide.splice(i, 1);
-          i--;
+        Asteroide[i].s -= 5;
+        if (Asteroide[i].v > 1) {
+          Asteroide[i].v -= 1;
         }
         score += 1;
-        break;
-      }   
+        if (Asteroide[i].s <= 0) {
+          Asteroide.splice(i, 1);
+          break;
+        }
+      }
     }
   }
 }
